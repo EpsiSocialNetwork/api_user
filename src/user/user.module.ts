@@ -4,16 +4,18 @@ import { UserController } from "./user.controller";
 
 // Entities Modules
 import { UserService } from "./user.service";
+import { FollowService } from "../follow/follow.service";
 
 // Entities
-import { User } from "../entities/User";
+import { UserView } from "../entities/UserView";
+import { FollowView } from "../entities/FollowView";
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User])
+    TypeOrmModule.forFeature([UserView, FollowView])
   ],
   controllers: [UserController],
-  providers: [UserService],
+  providers: [UserService, FollowService],
   exports: [UserService, TypeOrmModule]
 })
 export class UserModule {

@@ -7,6 +7,7 @@ import { Connection } from 'typeorm';
 import { KeycloakModule } from './auth/keycloak.module';
 import { AppController } from './app.controller';
 import { UserModule } from './user/user.module';
+import { FollowModule } from './follow/follow.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { UserModule } from './user/user.module';
     // All routes are controled by Keycloak
     KeycloakModule,
     UserModule,
+    FollowModule,
   ],
   controllers: [AppController],
 })
