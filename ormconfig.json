@@ -6,9 +6,9 @@
   "username": "posthoop_view",
   "password": "Epsi2020!",
   "database": "posthoop_user",
-  "schema": "v1-0",
+  "schema": "v1_0",
   "connectTimeoutMS": 2500,
-  "entities": ["src/entities/*.ts"],
+  "entities": ["dist/entities/*{.ts,.js}"],
   "synchronize": false,
   "logging": true
 }
