@@ -30,7 +30,7 @@
     "@nestjs/swagger": "^4.7.5",
     "@nestjs/typeorm": "^7.1.5",
     "config": "^3.3.3",
-    "nest-keycloak-connect": "1.4.0",
+    "nest-keycloak-connect": "^1.4.0",
     "pg": "^8.5.1",
     "postgresql": "0.0.1",
     "ramda": "^0.27.1",
