@@ -95,4 +95,23 @@ export class UserController {
     );
     return validate();
   }
+
+  @Get("/:uid/following")
+  @Roles("myclient:USER")
+  @ApiParam({
+    name: "uid",
+    description: "uuid of the user",
+    type: String,
+    required: true
+  })
+  findAllFollowingByUserUid(@Param("uid") uid: string): Promise<UserView> {
+    let validate = R.ifElse(
+      () => validateUUID(uid),
+      () => this.followService.findAllFollowingByUserUid(uid),
+      () => {
+        throw new HttpException("Incorrect uuid format", HttpStatus.BAD_REQUEST);
+      }
+    );
+    return validate();
+  }
 }

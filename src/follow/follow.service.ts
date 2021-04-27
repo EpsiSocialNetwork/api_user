@@ -26,4 +26,12 @@ export class FollowService {
       }
     });
   }
+
+  findAllFollowingByUserUid(id: string): Promise<FollowView[]> {
+    return this.followRepository.find({
+      where: {
+        followUidUser: id
+      }
+    });
+  }
 }
