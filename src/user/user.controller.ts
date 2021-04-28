@@ -77,6 +77,25 @@ export class UserController {
     return validate();
   }
 
+  @Get("/fullname/:fullname")
+  @Roles("myclient:USER")
+  @ApiParam({
+    name: "fullname",
+    description: "fullname of the user",
+    type: String,
+    required: true
+  })
+  findOneByFullname(@Param("fullname") fullname: string): Promise<UserView> {
+    let validate = R.ifElse(
+      () => !R.isNil(fullname),
+      () => this.userService.findOneByFullname(fullname),
+      () => {
+        throw new HttpException("You must specify a fullname", HttpStatus.BAD_REQUEST);
+      }
+    );
+    return validate();
+  }
+
   @Get("/:uid/follow")
   @Roles("myclient:USER")
   @ApiParam({

@@ -34,4 +34,8 @@ export class FollowService {
       }
     });
   }
+
+  removeFollow(removeFollow: FollowView) {
+    return this.followRepository.delete(removeFollow);
+  }
 }

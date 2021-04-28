@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpException, HttpStatus, Post } from "@nestjs/common";
+import { Body, Controller, Get, HttpException, HttpStatus, Post, Delete } from "@nestjs/common";
 import { Roles } from "nest-keycloak-connect";
 import { ApiBody, ApiParam, ApiTags } from "@nestjs/swagger";
 // Services
@@ -51,6 +51,42 @@ export class FollowController {
 
     let validate = R.ifElse(
       () => validateUUID(newFollow.uidUser) && validateUUID(newFollow.followUidUser),
+      () => checkDifferenceUid(),
+      () => {
+        throw new HttpException("Incorrect uuid format", HttpStatus.BAD_REQUEST);
+      }
+    );
+    return validate();
+  }
+
+  @Delete("")
+  @Roles("myclient:USER")
+  @ApiParam({
+    name: "follow",
+    description: "remove follow",
+    type: FollowView,
+    required: true
+  })
+  @ApiBody({
+    schema: {
+      type: "Follow",
+      example: {
+        "uidUser": "043c250c-130f-4fea-b9fb-f247aaa550c3",
+        "followUidUser": "e08460a6-b1c9-4b86-983f-de85cf6331fc"
+      }
+    }
+  })
+  removeFollow(@Body() removeFollow: FollowView): Promise<InsertResult> {
+    let checkDifferenceUid = R.ifElse(
+      () => !R.equals(removeFollow.uidUser, removeFollow.followUidUser),
+      () => this.followService.removeFollow(removeFollow),
+      () => {
+        throw new HttpException("uidUser and followUidUser must be different", HttpStatus.BAD_REQUEST);
+      }
+    );
+
+    let validate = R.ifElse(
+      () => validateUUID(removeFollow.uidUser) && validateUUID(removeFollow.followUidUser),
       () => checkDifferenceUid(),
       () => {
         throw new HttpException("Incorrect uuid format", HttpStatus.BAD_REQUEST);

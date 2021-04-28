@@ -18,6 +18,10 @@ export class UserService {
     return this.userRepository.findOne({ where: { uid: id } });
   }
 
+  findOneByFullname(fullName: string): Promise<UserView| undefined> {
+    return this.userRepository.findOne({ where: { fullname: fullName } });
+  }
+
   createUser(user: UserView): Promise<InsertResult> {
     return this.userRepository.insert(user);
   }
