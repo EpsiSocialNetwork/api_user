@@ -20,6 +20,9 @@ export class UserView {
   @ViewColumn()
   description: string | null;
 
+  @ViewColumn({ name: "created_at" })
+  createdAt: Date | null;
+
   @ViewColumn({ name: "picture_profile" })
   pictureProfile: string | null;
 
